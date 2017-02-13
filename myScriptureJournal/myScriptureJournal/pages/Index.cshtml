@@ -1,0 +1,74 @@
+﻿@{
+    var db = Database.Open("myScriptureJournalDB");
+    var selectCommand = "SELECT * FROM scripture";
+    var searchTerm = "";
+
+    if (!Request.QueryString["search"].IsEmpty())
+    {
+        selectCommand = "SELECT * FROM scripture WHERE book LIKE @0 or chapter LIKE @0 or verse LIKE @0 or note LIKE @0";
+        searchTerm = "%" + Request["search"] + "%";
+    }
+
+    var selectedData = db.Query(selectCommand, searchTerm);
+    var grid = new WebGrid(source: selectedData, defaultSort: "book", rowsPerPage: 5);
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style type="text/css">
+        .grid {
+            margin: 4px;
+            border-collapse: collapse;
+            width: 600px;
+        }
+
+            .grid th, .grid td {
+                border: 1px solid #C0C0C0;
+                padding: 5px;
+            }
+
+        .head {
+            background-color: #E8E8E8;
+            font-weight: bold;
+            color: #FFF;
+        }
+
+        .alt {
+            background-color: #E8E8E8;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <h2>Scripture List</h2>
+    <div>
+        <form method="get">
+            <div>
+                <label for="search"></label>
+                <input type="text" name="search" value="@Request.QueryString["search"]" />
+                <input type="Submit" value="Search" /><br />
+                @*(Leave blank to list all movies.)<br />*@
+            </div>
+        </form>
+    </div>
+    <div>
+        @grid.GetHtml(
+                    tableStyle: "grid",
+                    headerStyle: "head",
+                    alternatingRowStyle: "alt",
+                    columns: grid.Columns(
+                            grid.Column("Book"),
+                            grid.Column("Chapter"),
+                            grid.Column("Verse"),
+                            grid.Column("Note"),
+                            grid.Column("FavoriteFlag"),
+                            grid.Column("DateAdded")
+                    )
+           )
+    </div>
+</body>
+</html>
