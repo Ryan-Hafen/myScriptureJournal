@@ -133,14 +133,19 @@
     </Content>
     <Content Include="pages\Index.cshtml" />
     <Content Include="pages\addScripture.cshtml" />
+    <Content Include="pages\editScripture.cshtml" />
+    <Content Include="pages\deleteScripture.cshtml" />
+    <Content Include="pages\favoriteScriptureList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Styles\ScriptureStyle.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

@@ -1,15 +1,17 @@
 ﻿@{
-    Validation.RequireField("book", "You must enter a book");
-    Validation.RequireField("chapter", "chapter is required");
-    //Validation.RequireField("verse", "You haven't entered a year");
-    //Validation.RequireField("favoriteFlag", "You haven't entered a year");
-    //Validation.RequireField("note", "You haven't entered a year");
+    Layout = "~/_Layout.cshtml";
+    Page.Title = "Add Scripture";
+
+    Validation.RequireField("book", "Book is required!");
+    Validation.RequireField("chapter", "Chapter is required!");
 
     var book = "";
     var chapter = "";
     var verse = "";
     var favoriteFlag = "";
-    //var note = "";
+    var note = "";
+
+
 
     if (IsPost)
     {
@@ -17,71 +19,50 @@
         chapter = Request.Form["chapter"];
         verse = Request.Form["verse"];
         favoriteFlag = Request.Form["favoriteFlag"];
-        //note = Request.Form["note"];
+        note = Request.Form["note"];
 
         var db = Database.Open("myScriptureJournalDB");
-        var insertCommand = "INSERT INTO scripture (book, chapter, verse, favoriteFlag) Values(@0, @1, @2, @3)";
-        db.Execute(insertCommand, book, chapter, verse, favoriteFlag);
+        var insertCommand = "INSERT INTO scripture (book, chapter, verse, favoriteFlag, note) Values(@0, @1, @2, @3, @4)";
+        db.Execute(insertCommand, book, chapter, verse, favoriteFlag, note);
         Response.Redirect("~/pages/Index");
     }
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-    <style type="text/css">
-    .field-validation-error {
-        font-weight: bold;
-        color: red;
-        background-color: yellow;
-    }
 
-    .validation-summary-errors {
-        border: 2px dashed red;
-        color: red;
-        background-color: yellow;
-        font-weight: bold;
-        margin: 12px;
-    }
-</style>
-</head>
-<body>
-    <h1>Add a Scripture</h1>
-    <form method="post">
-        <fieldset>
-            <legend>Scripture</legend>
-            <p>
-                <label for="book">Book:</label>
-                <input type="text" name="book" value="@Request.Form["book"]" />
-                @Html.ValidationMessage("book")
-            </p>
+<h2>Add a Scripture</h2>
+@Html.ValidationSummary()
+<form method="post">
+    <fieldset>
+        <legend>Scripture</legend>
+        <p>
+            @Html.Label("Book:")
+            @Html.TextBox("book", Request.Form["book"])
+            @Html.ValidationMessage("book")
+            @*@Html.DropDownList("BookId", "Please Select One", items, 4, new { @class = "special" })*@
+        </p>
 
-            <p>
-                <label for="chapter">Chapter(s):</label>
-                <input type="text" name="chapter" value="@Request.Form["chapter"]" />
-                @Html.ValidationMessage("chapter")
-            </p>
+        <p>
+            @Html.Label("Chapter(s):")
+            @Html.TextBox("chapter", Request["chapter"])
+            @Html.ValidationMessage("chapter")
+        </p>
 
-            <p>
-                <label for="verse">Verse(s):</label>
-                <input type="text" name="verse" value="@Request.Form["verse"]" />
-                @*@Html.ValidationMessage("title")*@
-            </p>
+        <p>
+            @Html.Label("Verse(s):")
+            @Html.TextBox("verse", Request.Form["verse"])
+        </p>
 
-            <p>
-                <label for="favoriteFlag">Favorite:</label>
-                <input type="checkbox" name="favoriteFlag" value="0" @*value="@Request.Form["favoriteFlag"]"*@ />
-                @*@Html.ValidationMessage("title")*@
-            </p>
+        <p>
+            @Html.Label("Favorite:")
+            @Html.CheckBox("favoriteFlag", Request.Form["favoriteFlag"])
+        </p>
 
-            @*<p>
-                    <textarea id="note" name="note" rows="10" cols="30" maxlength="4000" placeholder="Enter journal notes..."></textarea>
-                    @Html.ValidationMessage("title")
-                </p>*@
+        <p>
+            @Html.Label("Note:")
+            @Html.TextArea("note", Request["note"])
+        </p>
 
-            <p><input type="submit" name="buttonSubmit" value="Add Scripture" /></p>
-        </fieldset>
-    </form>
-</body>
-</html>
+        <p>
+            <input type="submit" name="buttonSubmit" value="Add Scripture" />
+        </p>
+    </fieldset>
+</form>

@@ -1,0 +1,73 @@
+﻿@{
+    var db = Database.Open("myScriptureJournalDB");
+    var selectCommand = "SELECT * FROM scripture where favoriteFlag = 'on'";
+    var searchTerm = "";
+
+    if (!Request.QueryString["search"].IsEmpty())
+    {
+        selectCommand = "SELECT * FROM scripture WHERE favoriteFlag = 'on' and (book LIKE @0 or chapter LIKE @0 or verse LIKE @0 or note LIKE @0)";
+        searchTerm = "%" + Request["search"] + "%";
+    }
+
+    var selectedData = db.Query(selectCommand, searchTerm);
+    var grid = new WebGrid(source: selectedData, defaultSort: "book", rowsPerPage: 5);
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style type="text/css">
+        .grid {
+            margin: 4px;
+            border-collapse: collapse;
+            width: 600px;
+        }
+
+            .grid th, .grid td {
+                border: 1px solid #C0C0C0;
+                padding: 5px;
+            }
+
+        .head {
+            background-color: #E8E8E8;
+            font-weight: bold;
+            color: #FFF;
+        }
+
+        .alt {
+            background-color: #E8E8E8;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <h2>Favorite Scripture List</h2>
+    <div>
+        <form method="get">
+            <div>
+                <label for="search"></label>
+                <input type="text" name="search" value="@Request.QueryString["search"]" />
+                <input type="Submit" value="Search" /><br />
+            </div>
+        </form>
+    </div>
+    <div>
+        @grid.GetHtml(
+                    tableStyle: "grid",
+                    headerStyle: "head",
+                    alternatingRowStyle: "alt",
+                    columns: grid.Columns(
+                            grid.Column("book", "Books:"),
+                            grid.Column("chapter", "Chapter(s):"),
+                            grid.Column("verse", "Verse(s):"),
+                            //grid.Column("FavoriteFlag"),
+                            grid.Column("note", "Note:"),
+                            grid.Column("DateAdded", "Date Added")
+                    )
+           )
+    </div>
+</body>
+</html>

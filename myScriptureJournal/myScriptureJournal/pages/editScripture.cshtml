@@ -1,0 +1,100 @@
+﻿@{
+    Layout = "~/_Layout.cshtml";
+    Page.Title = "Edit Scripture";
+
+    var scriptureId = "";
+    var book = "";
+    var chapter = "";
+    var verse = "";
+    var favoriteFlag = "";
+    var note = "";
+
+    if (!IsPost)
+    {
+        if (!Request.QueryString["Id"].IsEmpty() && Request.QueryString["Id"].IsInt())
+        {
+            scriptureId = Request.QueryString["Id"];
+            var db = Database.Open("myScriptureJournalDB");
+            var dbCommand = "SELECT * FROM scripture WHERE ID = @0";
+            var row = db.QuerySingle(dbCommand, scriptureId);
+
+            if (row != null)
+            {
+                book = row.book;
+                chapter = row.chapter;
+                verse = row.verse;
+                favoriteFlag = row.favoriteFlag;
+                note = row.note;
+            }
+            else
+            {
+                Validation.AddFormError("No scripture was selected.");
+            }
+        }
+        else
+        {
+            Validation.AddFormError("No scripture was selected.");
+        }
+    }
+
+    if (IsPost)
+    {
+        Validation.RequireField("book", "Book is required!");
+        Validation.RequireField("chapter", "Chapter is required!");
+
+        book = Request.Form["book"];
+        chapter = Request.Form["chapter"];
+        verse = Request.Form["verse"];
+        favoriteFlag = Request.Form["favoriteFlag"];
+        note = Request.Form["note"];
+        scriptureId = Request.Form["scriptureId"];
+
+        if (Validation.IsValid())
+        {
+            var db = Database.Open("myScriptureJournalDB");
+            var updateCommand = "UPDATE scripture SET book=@0, chapter=@1, verse=@2, favoriteFlag=@3, note=@4 WHERE Id=@5";
+            db.Execute(updateCommand, book, chapter, verse, favoriteFlag, note, scriptureId);
+            Response.Redirect("~/pages/Index.cshtml");
+        }
+
+    }
+}
+<h2>Edit a Scripture</h2>
+@Html.ValidationSummary()
+<form method="post">
+    <fieldset>
+        <legend>Scripture</legend>
+        <p>
+            @Html.Label("Book:")
+            @Html.TextBox("book", value: @book)
+            @Html.ValidationMessage("book")
+        </p>
+
+        <p>
+            @Html.Label("Chapter(s):")
+            @Html.TextBox("chapter", value: @chapter)
+            @Html.ValidationMessage("chapter")
+        </p>
+
+        <p>
+            @Html.Label("Verse(s):")
+            @Html.TextBox("verse", value: @verse)
+        </p>
+
+        <p>
+            @Html.Label("Favorite:")
+            <input type="checkbox" checked="@favoriteFlag" value="@favoriteFlag">
+        </p>
+
+        <p>
+            @Html.Label("Note:")
+            @Html.TextArea("note", value: @note)
+        </p>
+
+        <input type="hidden" name="scriptureId" value="@scriptureId" />
+
+
+        <p><input type="submit" name="buttonSubmit" value="Submit Changes" /></p>
+    </fieldset>
+</form>
+<p><a href="~/pages/Index.cshtml">Back to Scripture List</a></p>
