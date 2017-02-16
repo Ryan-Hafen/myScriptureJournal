@@ -41,7 +41,7 @@
     {
         Validation.RequireField("book", "Book is required!");
         Validation.RequireField("chapter", "Chapter is required!");
-
+        
         book = Request.Form["book"];
         chapter = Request.Form["chapter"];
         verse = Request.Form["verse"];
@@ -83,7 +83,8 @@
 
         <p>
             @Html.Label("Favorite:")
-            <input type="checkbox" checked="@favoriteFlag" value="@favoriteFlag">
+            <input type="checkbox", value: @favoriteFlag checked="@favoriteFlag">
+            @Html.CheckBox("favoriteFlag", Request.Form["favoriteFlag"], new { value = @favoriteFlag})
         </p>
 
         <p>
