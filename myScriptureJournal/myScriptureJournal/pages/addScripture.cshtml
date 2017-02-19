@@ -1,9 +1,13 @@
 ﻿@{
     Layout = "~/_Layout.cshtml";
     Page.Title = "Add Scripture";
-    
+
     Validation.RequireField("book", "Book is required!");
     Validation.RequireField("chapter", "Chapter is required!");
+
+    //var selectdb = Database.Open("myScriptureJournalDB");
+    //var books = selectdb.Query("Select Id, book from books");
+    //var volumns = selectdb.Query("Select Id, volumn from volumns");
 
     var book = "";
     var chapter = "";
