@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "~/_Layout.cshtml";
     Page.Title = "Add Scripture";
-
+    
     Validation.RequireField("book", "Book is required!");
     Validation.RequireField("chapter", "Chapter is required!");
 
@@ -10,8 +10,6 @@
     var verse = "";
     var favoriteFlag = "";
     var note = "";
-
-
 
     if (IsPost)
     {
@@ -25,6 +23,7 @@
         var insertCommand = "INSERT INTO scripture (book, chapter, verse, favoriteFlag, note) Values(@0, @1, @2, @3, @4)";
         db.Execute(insertCommand, book, chapter, verse, favoriteFlag, note);
         Response.Redirect("~/pages/Index");
+
     }
 }
 
@@ -33,31 +32,34 @@
 <form method="post">
     <fieldset>
         <legend>Scripture</legend>
-        <p>
+        <p class="block">
             @Html.Label("Book:")
             @Html.TextBox("book", Request.Form["book"])
             @Html.ValidationMessage("book")
         </p>
 
-        <p>
+        <p class="block">
             @Html.Label("Chapter(s):")
-            @Html.TextBox("chapter", Request["chapter"])
+            @Html.TextBox("chapter", Request.Form["chapter"])
             @Html.ValidationMessage("chapter")
         </p>
 
-        <p>
+        <p class="block">
             @Html.Label("Verse(s):")
             @Html.TextBox("verse", Request.Form["verse"])
         </p>
 
-        <p>
+        <p class="block">
             @Html.Label("Favorite:")
-            @Html.CheckBox("favoriteFlag", Request.Form["favoriteFlag"])
+            <select name="favoriteFlag">
+                <option value="Yes">Yes</option>
+                <option value="" selected></option>
+            </select>
         </p>
 
-        <p>
+        <p class="block">
             @Html.Label("Note:")
-            @Html.TextArea("note", Request["note"])
+            @Html.TextArea("note", Request.Form["note"])
         </p>
 
         <p>
@@ -65,3 +67,4 @@
         </p>
     </fieldset>
 </form>
+<p><a href="~/pages/Index.cshtml">Back to Scripture List</a></p>

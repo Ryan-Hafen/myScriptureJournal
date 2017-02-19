@@ -1,7 +1,10 @@
 ﻿html {
   height: 100%;
+  max-width: 1200px;
   margin: 0;
   padding: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 body {
@@ -52,20 +55,24 @@ h2 {
   background-color: #E8E8E8;
   font-weight: bold;
   color: #FFF;
+  border-bottom: 1px solid #C0C0C0;
 }
 
-.grid {   
-  margin-top: 2em; 
+.grid {
+  margin-top: 2em;
   border-collapse: collapse;
   border: 1px solid #C0C0C0;
+  table-layout: fixed;
   width: 100%;
 }
 
-.grid th, td {
+.grid th,
+td {
   text-align: center;
+  text-wrap:normal;
   padding: 5px;
+  /*max-width: 20em;*/
 }
-
 
 .alt {
   background-color: #E8E8E8;
@@ -85,14 +92,36 @@ span.dataDisplay {
 }
 
 a:link {
-    text-decoration: none;
-    color: mediumblue;
+  text-decoration: none;
+  color: mediumblue;
 }
 
 a:visited {
-    color: mediumblue;
+  color: mediumblue;
 }
 
 a:hover {
-    color: darkgoldenrod;
+  color: darkgoldenrod;
+}
+
+.block label {
+  display: block;
+  text-align: left;
+  font-weight: bold;
+  color: mediumblue;
+}
+
+.block input,
+select,
+textarea {
+  width: 20em;
+}
+
+.block textarea {
+  height: 15em;
+}
+
+.note{
+    text-align:left;
+    width:200em;
 }

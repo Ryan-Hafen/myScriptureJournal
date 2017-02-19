@@ -8,6 +8,7 @@
     var verse = "";
     var favoriteFlag = "";
     var note = "";
+    var dateAdded = "";
 
     if (!IsPost)
     {
@@ -25,6 +26,7 @@
                 verse = row.Verse;
                 favoriteFlag = row.FavoriteFlag;
                 note = row.Note;
+                dateAdded = row.dateAdded;
             }
             else
             {
@@ -55,24 +57,29 @@
     <fieldset>
         <legend>Scripture</legend>
 
-        <p>
-            <span>Book:</span>
+        <p class="block">
+            @Html.Label("Book:")
             <span>@book</span>
         </p>
 
-        <p>
-            <span>Chapter(s):</span>
+        <p class="block">
+            @Html.Label("Chapter(s):")
             <span>@chapter</span>
         </p>
 
-        <p>
-            <span>Verse(s):</span>
+        <p class="block">
+            @Html.Label("Verse(s):")
             <span>@verse</span>
         </p>
 
-        <p>
-            <span>Note:</span>
+        <p class="block">
+            @Html.Label("Note:")
             <span>@note</span>
+        </p>
+
+        <p class="block">
+            @Html.Label("Date Added:")
+            <span>@dateAdded</span>
         </p>
 
         <input type="hidden" name="scriptureId" value="@scriptureId" />

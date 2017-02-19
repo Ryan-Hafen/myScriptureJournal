@@ -2,6 +2,8 @@
     Layout = "~/_Layout.cshtml";
     Page.Title = "Edit Scripture";
 
+
+
     var scriptureId = "";
     var book = "";
     var chapter = "";
@@ -41,7 +43,7 @@
     {
         Validation.RequireField("book", "Book is required!");
         Validation.RequireField("chapter", "Chapter is required!");
-        
+
         book = Request.Form["book"];
         chapter = Request.Form["chapter"];
         verse = Request.Form["verse"];
@@ -64,36 +66,37 @@
 <form method="post">
     <fieldset>
         <legend>Scripture</legend>
-        <p>
+        <p class="block">
             @Html.Label("Book:")
             @Html.TextBox("book", value: @book)
             @Html.ValidationMessage("book")
         </p>
 
-        <p>
+        <p class="block">
             @Html.Label("Chapter(s):")
             @Html.TextBox("chapter", value: @chapter)
             @Html.ValidationMessage("chapter")
         </p>
 
-        <p>
+        <p class="block">
             @Html.Label("Verse(s):")
             @Html.TextBox("verse", value: @verse)
         </p>
 
-        <p>
+        <p class="block">
             @Html.Label("Favorite:")
-            <input type="checkbox", value: @favoriteFlag checked="@favoriteFlag">
-            @Html.CheckBox("favoriteFlag", Request.Form["favoriteFlag"], new { value = @favoriteFlag})
+            <select name="favoriteFlag">
+                <option value="Yes">Yes</option>
+                <option value=""></option>
+            </select>
         </p>
 
-        <p>
+        <p class="block">
             @Html.Label("Note:")
             @Html.TextArea("note", value: @note)
         </p>
 
         <input type="hidden" name="scriptureId" value="@scriptureId" />
-
 
         <p><input type="submit" name="buttonSubmit" value="Submit Changes" /></p>
     </fieldset>

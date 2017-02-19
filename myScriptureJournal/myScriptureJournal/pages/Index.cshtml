@@ -28,20 +28,21 @@
     </form>
 </div>
 <div>
+
     @grid.GetHtml(
                     tableStyle: "grid",
                     headerStyle: "head",
                     alternatingRowStyle: "alt",
+                    mode: WebGridPagerModes.Numeric,
                     columns: grid.Columns(
-
-                            grid.Column(format: @<a href="~/pages/editScripture?id=@item.id">Edit</a>),
-                            grid.Column("book", "Books"),
-                            grid.Column("chapter", "Chapter(s)"),
-                            grid.Column("verse", "Verse(s)"),
-                            grid.Column("favoriteFlag", header: "Favorite", format: (item) => @Html.Raw("<input type='checkbox' " + ((item.favoriteFlag == "on") ? "checked" : "") + " disabled='disabled' />")),
-                            grid.Column("note", "Note"),
-                            grid.Column("DateAdded", "Date Added", format: @<text>@item.DateAdded.ToString("MMM dd yyyy")</text>),
-                            grid.Column(format: @<a href="~/pages/deleteScripture?id=@item.id">Delete</a>)
+                            grid.Column(format: @<a href="~/pages/editScripture?id=@item.id">Edit</a>, style: "edit"),
+                            grid.Column("book", "Books", style: "book"),
+                            grid.Column("chapter", "Chapter(s)", style: "chapter"),
+                            grid.Column("verse", "Verse(s)", style: "verse"),
+                            grid.Column("favoriteFlag", "Favorite", style: "favorite"),
+                            grid.Column("note", "Note", style: "note"),
+                            grid.Column("DateAdded", "Date Added", format: @<text>@item.DateAdded.ToString("MMM dd yyyy")</text>, style: "date"),
+                            grid.Column(format: @<a href="~/pages/deleteScripture?id=@item.id">Delete</a>, style: "delete")
                     )
            )
 </div>
