@@ -1,18 +1,18 @@
 ﻿html {
   height: 100%;
-  max-width: 1200px;
   margin: 0;
   padding: 0;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 body {
+    max-width: 1200px;
   height: 60%;
   font-family: 'Roboto Slab', serif;
   font-size: 10pt;
   background-color: LightGray;
   line-height: 1.6em;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 h1 {
@@ -25,26 +25,61 @@ h2 {
 
 #container {
   min-height: 100%;
-  position: relative;
   left: 10%;
 }
 
 #header {
   padding: 8px;
-  width: 80%;
   background-color: #4b6c9e;
   color: White;
+  display:flex;
+  align-content:flex-end;
+}
+#header h1{
+  flex: 1 100%;
+  font-size: 3em;
+}
+#nav {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  flex: 1 60%;
+  align-items:flex-end;
+
+}
+#nav a {
+    text-align: center; 
+    padding-left: 10px;
+    padding-right: 10px;
+  font-size: 1.2em;
+  font-weight: bold;
+  
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+}
+
+.nav-link:visited {
+  color: white;
+}
+
+a:hover {
+  color: darkgoldenrod;
+}
+
+a:visited{
+    color:mediumblue;
 }
 
 #main {
-  width: 80%;
   padding: 8px;
   padding-bottom: 4em;
   background-color: White;
 }
 
 #footer {
-  width: 80%;
   height: 2em;
   padding: 8px;
   margin-top: -2em;
@@ -62,13 +97,13 @@ h2 {
   margin-top: 2em;
   border-collapse: collapse;
   border: 1px solid #C0C0C0;
-  table-layout: fixed;
+  table-layout:fixed;
   width: 100%;
 }
 
 .grid th,
 td {
-  text-align: center;
+  text-align: left;
   text-wrap:normal;
   padding: 5px;
   /*max-width: 20em;*/
@@ -91,16 +126,29 @@ span.dataDisplay {
   font-weight: bold;
 }
 
-a:link {
+.edit a:link {
   text-decoration: none;
   color: mediumblue;
 }
 
-a:visited {
+.delete a:link {
+  text-decoration: none;
   color: mediumblue;
 }
 
-a:hover {
+.edit a:visited {
+  color: mediumblue;
+}
+
+.edit a:hover {
+  color: darkgoldenrod;
+}
+
+.delete a:visited {
+  color: mediumblue;
+}
+
+.delete a:hover {
   color: darkgoldenrod;
 }
 

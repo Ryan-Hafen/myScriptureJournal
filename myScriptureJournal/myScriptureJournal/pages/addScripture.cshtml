@@ -5,9 +5,6 @@
     Validation.RequireField("book", "Book is required!");
     Validation.RequireField("chapter", "Chapter is required!");
 
-    //var selectdb = Database.Open("myScriptureJournalDB");
-    //var books = selectdb.Query("Select Id, book from books");
-    //var volumns = selectdb.Query("Select Id, volumn from volumns");
 
     var book = "";
     var chapter = "";
@@ -35,7 +32,7 @@
 @Html.ValidationSummary()
 <form method="post">
     <fieldset>
-        <legend>Scripture</legend>
+        <legend>Scripture</legend> 
         <p class="block">
             @Html.Label("Book:")
             @Html.TextBox("book", Request.Form["book"])
@@ -56,8 +53,9 @@
         <p class="block">
             @Html.Label("Favorite:")
             <select name="favoriteFlag">
+                <option value="">--Select--</option>
                 <option value="Yes">Yes</option>
-                <option value="" selected></option>
+                <option value="No">No</option>
             </select>
         </p>
 
@@ -71,4 +69,4 @@
         </p>
     </fieldset>
 </form>
-<p><a href="~/pages/Index.cshtml">Back to Scripture List</a></p>
+@*<p><a href="~/pages/Index.cshtml">Back to Scripture List</a></p>*@
